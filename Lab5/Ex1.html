@@ -1,23 +1,35 @@
-Hello! I am approx <div id='ageDiv'></div> The # of months since my last b-day is:
+
 <script>
-// document.write(10);
+    // document.write(10);
 
-// document.getElementById('ageDiv').innerHTML = 52.8;
+    // document.getElementById('ageDiv').innerHTML = 52.8;
 
-numberOfKidsWanted = 1;
-age = 52;
+    numberOfKidsWanted = 1;
+    age = 52;
 
-//console.log("I would like to have " + numberOfKidsWanted*age*stupid + " kids");
+    //console.log("I would like to have " + numberOfKidsWanted*age*stupid + " kids");
 
-var myGloriousFirstName = "Dan";
-var myGloriousMiddleName = "Noah";
-var myGloriousLastName = "Port";
+    var myGloriousFirstName = "Dan";
+    var myGloriousMiddleName = "Noah";
+    var myGloriousLastName = "Port";
+/*
+    var fullName = myGloriousFirstName + '<br>'
+        + myGloriousMiddleName + '<br>'
+        + myGloriousLastName + '<BR>'
+        + myGloriousFirstName[0] + '.'
+        + myGloriousLastName[0] + '.';
 
-var fullName = myGloriousFirstName + '<br>' 
-+ myGloriousMiddleName + '<br>' 
-+ myGloriousLastName + '<BR>'
-+ myGloriousFirstName[0] + '.'
-+ myGloriousLastName[0] + '.';
 
-document.write(fullName);
+var fancyFullName = '<b>' + myGloriousFirstName + '</b><br>'
+        + '<em>' + myGloriousMiddleName + '</em><br>'
+        + '<font size="150%">' + myGloriousLastName + '</font>';
+
+    document.write(fancyFullName);
+
+*/
+amount = 1.23;
+tax = .0413 * amount;
+
+document.write('The tax on ' + myGloriousFirstName + '’s bill is $' +
+tax.toFixed(2) );
 </script>
