@@ -1,0 +1,106 @@
+
+<script src="./product_data.js"> //uses get request from ./product_data.js
+</script>
+
+<script>
+// get the query string values from form post
+let params = (new URL(document.location)).searchParams; // searching for the parameters in a new URL document location
+GET = {}; //GET is an empty object
+params.forEach(function (value, key) { GET[key] = value }); // the value is equal to the object of GET
+
+subtotal = 0; //subtotal variable is equal to 0
+
+//Creating the Table HTML for the Invoice - borrowed from WOD Invoice2
+
+</script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="products_style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Invoice</title>
+
+</head>
+<style>
+    div{
+        color:ivory;
+    }
+    </style>    
+<body>
+        <table border="2" align= "center" bgcolor="#D2B48C">
+                <tbody>
+                  <tr>
+                    <th style="text-align: center;" width="43%">Item</th>
+                    <th style="text-align: center;" width="11%">quantity</th>
+                    <th style="text-align: center;" width="13%">price</th>
+                    <th style="text-align: center;" width="54%">extended price</th>
+                  </tr>
+            <script>
+              for (i = 0; i < product_data.length; i++) { // when variable i is equal to 0, is less than the product data length, and i increases by 1
+                qty = GET[`quantity_textbox${i}`]; // variable qty is equal to what node.js GETs from the quantity value entered in the form
+                if (qty > 0){  
+                var extended_price = product_data[i].price * qty // extended price is equal to the price of given product "i" in the array times quantity requested
+                var subtotal = extended_price + subtotal // makes a running subtotal, is equal to the extended_price plus whatever running subtotal is at that point
+//writing in the document the product name, price, and price*quantity for every product[i] in the array
+                  document.write(`
+                  <tr>
+                    <td width="43%">${product_data[i].type}</td>
+                    <td align="center" width="11%">${qty}</td>
+                    <td width="13%">\$${product_data[i].price}</td>
+                    <td width="54%">\$${extended_price}</td>
+                  </tr>
+            `);}
+            }
+         </script>
+         <script>
+            var tax_rate = 0.0575; // tax rate is 5.75%
+              var tax = tax_rate * subtotal; // tax is tax rate times subtotal
+              if(subtotal <= 50){ // if subtotal is less than or equal to $50
+                   shipping = 2;  // shipping is $2
+                   }
+              else if(subtotal <= 100){ //if subtotal is less than or equal to $100
+                shipping = 5; // shipping is $5
+              }
+              else{ // all else (if subtotal is greater than $100)
+                shipping = 0.05*subtotal  //shipping is 5% of the subtotal
+              }
+              var total = tax + subtotal + shipping;  // total is equal to sum of tax, subtotal, and shipping
+              </script>
+             <tr>
+                    <td colspan="4" width="100%">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td style="text-align: center;" colspan="3" width="67%">Sub-total</td>
+                    <td width="54%">$<script>document.write(subtotal)</script></td>
+                  </tr>
+                  <tr>
+                    <td style="text-align: center;" colspan="3" width="67%"><span style="font-family: arial;">Tax @ 5.75%</span></td>
+                    <td width="54%">$<script>document.write(tax.toFixed(2))</script></td>
+                  </tr>
+                  <tr>
+                    <td style="text-align: center;" colspan="3" width="67%"><span style="font-family: arial;">Shipping</span></td>
+                    <td width="54%">$<script>document.write(shipping)</script></td>
+                  </tr>
+                  <tr>
+                    <td style="text-align: center;" colspan="3" width="67%"><strong>Total</strong></td>
+                    <td width="54%"><strong>$<script>document.write(total.toFixed(2))</script></strong></td>
+                  </tr>
+            
+                </tbody>
+              </table>
+              <br>
+              <form name="quantity_form" action="/confirmation.html" method="GET" align="center">
+                <input type="submit" value="Place Order">
+        <div>
+            <br><b>
+                Shipping Policy - We charge the following amounts for shipping for the following subtotals:
+               <br>$0 - $49.99: $2 shipping
+               <br>$50 - $99.99: $5 shipping
+               <br>Over $100: 5% of the subtotal amount
+            </b> </div>
+        </div>
+</body>
+</html>

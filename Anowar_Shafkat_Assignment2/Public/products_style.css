@@ -1,0 +1,28 @@
+/* Image Specifications */ 
+img{
+    height:300px;
+    width:400px;
+}
+
+/* Styling the products display */
+main{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    color: rgba(55, 52, 221, 0.521);
+}
+
+/*Setting css for the body*/
+/* Font from BrowserHistory2*/
+body{
+    background: url(./images/Sun.jpg);
+    font-family:'Open Sans',sans-serif;
+            background-attachment: fixed;
+            background-size: 1500px 900px;
+}
+
+/* Typography */
+h1,h2{
+    color: rgb(52, 176, 248);
+    text-align: center
+}
