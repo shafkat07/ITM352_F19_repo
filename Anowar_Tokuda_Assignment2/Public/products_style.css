@@ -1,0 +1,56 @@
+/* Description: A CSS page that styles the html pages. */
+/*Shafkat and Justin 12/3/19*/
+/*products page*/
+h1 {
+    color: rgb(12, 58, 145);
+    text-align: center;
+    font-style: inherit;
+    font-display: inherit;
+    text-shadow: -1px 0  white, 0 1px  white, 1px 0  white, 0 -1px  white;
+  }
+  
+  h2 {
+      color:  rgb(153, 10, 10);
+      text-align: center;
+      text-shadow: -1px 0  white, 0 1px  white, 1px 0  white, 0 -1px  white;
+  }
+  /*page background*/
+  body {
+      
+      justify-content: space-around;
+      background: url(./images/Sun.jpg); 
+      background-repeat: no-repeat; 
+      background-size: cover; 
+  }
+  /*pictures*/
+  img
+  {
+    width: 200px;
+    height: 200px;
+    border: 3px solid rgb(173, 31, 15);
+  }
+  
+  div {
+    align-content: center;
+    text-align: center;
+    color: rgb(0, 0, 0);
+  }
+  /*purchase submit button*/
+  input {
+  color: rgb(245, 237, 236);
+  }
+  /*invoice*/
+  table{
+    color: rgb(96, 0, 134);
+    text-align: center;
+    border-color: rgb(72, 72, 247);
+    margin-left: auto;
+    margin-right: auto;
+  }
+  /*invoice table*/
+  th, td {
+    padding: 5px;
+    text-align: center;
+    color: white;
+    background:  rgb(212, 212, 248);
+  }

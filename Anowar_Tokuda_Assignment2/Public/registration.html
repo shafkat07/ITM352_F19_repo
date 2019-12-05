@@ -1,0 +1,49 @@
+<html lang="en">
+        <link href="products_style.css" rel="stylesheet">
+    <script>src="server.js"</script>
+<head>
+        <h1>Shafkat's Photo Gallery Registration</h1>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+  
+<body>
+  <div>
+  <form  method="POST" action="" onsubmit=validatePassword() >
+    <input type="text" name="fullname" size="40" pattern="[a-zA-Z]+[ ]+[a-zA-Z]+" maxlength="30" placeholder="Enter First & Last Name"><br />
+    <input type="text" name="username" size="40" pattern=".[a-z0-9]{4,10}" required title="Either 4-10 Characters & only numbers/letters" placeholder="Enter Username" ><br />
+    <input type="email" name="email" size="40" placeholder="Enter Email" pattern="[a-z0-9._]+@[a-z0-9]+\.[a-z]{3,}$" required title="Error!! Make sure your email contains the following... 1. @ sign 2. Three letters in domain name 3. Only numbers/characters and _ & . may be used. "><br />
+    <input type="password" id="password" name="password"  size="40" pattern=".{6,}" required title="6 characters minimum" placeholder="Enter Password" ><br />
+    <input type="password" id="repeat_password" name="repeat_password" size="40" pattern=".{6,}" required title="6 characters minimum" placeholder="Enter Password Again"><br />
+ 
+    <input type="submit" value="Submit" id="submit">
+</form></div>
+<script>
+    var password = document.getElementById("password") //turns password into an object
+    ,repeat_password = document.getElementById("repeat_password"); //turns repeat password into an object
+    
+    function validatePassword(){
+      if(password.value != repeat_password.value) { //if password is not equal to repeat password, say passwords don't match
+        alert("Passwords Don't Match");
+    response.redirect('public/registration.html') 
+      } 
+    else{
+        response.redirect('Login_Successful') 
+    }
+  
+    }
+      validatePassword();
+  </script>
+</body>
+  
+
+
+
+</body>
+</html>
+
+<script>

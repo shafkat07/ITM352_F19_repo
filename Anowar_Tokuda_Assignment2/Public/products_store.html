@@ -1,0 +1,109 @@
+<script src="./product_data.js">
+    //Description: This is the products display file that contains all the necessary data validation funcitons, header and a loop that displays the products, description and images.
+    //Shafkat and Justin 12/3/19-Code is adapted from Jayla Kaita's Assignment 1
+    //Within the head we linked the css to the display page</script>
+    
+    <!DOCTYPE html>
+    <html>
+    
+    <head>
+        <meta charset="utf-8">
+        <title>Shafkat's Photo Gallery</title>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"rel="stylesheet"> 
+        <link href="products_style.css" rel="stylesheet">
+    </head>
+    
+    <body>
+    
+        <form name="product_selection_form" action="process_page" method="GET">
+            <header>
+                <h1>Shafkat's Photo Gallery</h1>
+            </header>
+            <div>
+                <main id="products_main_display">
+                   <script>
+                        for (i = 0; i < product_data.length; i++) {
+                            document.write(`
+                            <h2>${product_data[i].type}</h2>
+                            <h2>$${product_data[i].price}</h2>
+                            <img src="${product_data[i].image}">  
+                            <h3>${product_data[i].description}</h3>              
+                            <div>
+                            <label id="quantity${i}_label"}">Quantity:</label>
+                                    <input type="text" placeholder="enter amount here!" name="quantity${i}" 
+                                    onkeyup="checkQuantityTextbox(this);">         
+                            </div>
+                                    `)
+                        }
+                    </script>
+                    <br>
+                    <strong><input type="submit" value="Purchase!" name="purchase_submit"></strong>
+                </main>
+            </div>
+            <footer id="display_footer">
+                <h1>
+                    Cover Your Wall!
+                </h1>
+            </footer>
+        </form>
+    
+    </body>
+    
+    </html>
+    
+    <script>
+    //the form goes to the server and loads the gallery page
+    //once the user presses the link (image of NYC) on the index page it will bring them to this page (products_store)
+    //within the body is everything the client sees (h1, products, name, price, image)
+    //in the script a for loop is written so that the arrays are listed instead of manually wtitting each item 
+    //the for loop is listing all the objects until is reaches the last one (4) and stops
+    //when the purchase button is pressed the functions will process
+    //borrowed code from Jayla Kaita's Assignment 1 example
+    //functions to do checking
+    //Ensures data inputted is not a negative number, does not contain letters and is not a decimal
+             function isNonNegInt(q, return_errors = false) {
+                 errors = []; // assume no errors at first
+                 if (q == '') q = 0; // handle blank inputs as if they are 0
+                 if (Number(q) != q) errors.push('<font color="red">Please put a number♡</font>'); // Check if string is a number value
+                 else if (q < 0) errors.push('<font color="red">Negative value!</font>'); // Check if it is non-negative
+                 else if (parseInt(q) != q) errors.push('<font color="red">Not an integer!</font>'); // Check that it is an integer
+                 return return_errors ? errors : (errors.length == 0); //returns as error
+             }
+             //Checks quantity and if there is no error, quantity is shown since it is a valid input
+             function checkQuantityTextbox(theTextbox) {
+                 errs = isNonNegInt(theTextbox.value, true);
+                 if (errs.length == 0) errs = ['Quantity:'];
+                 if (theTextbox.value.trim() == '') errs = ['Quantity:']; //Starting value next to textbox will appear as Quantity
+                 document.getElementById(theTextbox.name + '_label').innerHTML = errs.join(", ");
+             }
+             //Get parameters from query string
+             window.onload = function () {
+                 let params = (new URL(document.location)).searchParams; // get the query string which has the form data
+                 // form was submitted so check that quantities are valid then redirect to invoice if ok.
+                  if (params.has('purchase_submit')) {
+                     has_errors = false; // assume quantities are valid from the start
+                     total_qty = 0; // need to check if something was selected so we will look if the total > 0
+                     for (i = 0; i < product_data.length; i++) {
+                         if (params.has(`quantity${i}`)) {
+                             a_qty = params.get(`quantity${i}`);
+                             // make textboxes sticky in case of invalid data
+                             product_selection_form[`quantity${i}`].value = a_qty;
+                             total_qty += a_qty; //Adds up all quantities
+                             if (!isNonNegInt(a_qty)) {
+                                 has_errors = true; // Invalid quantity
+                                 checkQuantityTextbox(product_selection_form[`quantity${i}`]); // show where the error is
+                             }
+                         }
+                     }
+                     // Now respond to errors or redirect to invoice if all is ok
+                     if (has_errors) {
+                         alert("Please enter only valid quantities!"); //Displays please enter only valid quantities pop up message if there are errors
+                     } else if (total_qty == 0) { // no quantity selections, just give a general alert of please select quantities
+                         alert("Please select quantities!");
+                     } else { // when it is all good to go, the server will send client to login page.
+                        response.redirect('/login') 
+                     }
+                 }
+             } 
+         
+         </script>

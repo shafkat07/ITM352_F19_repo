@@ -1,0 +1,147 @@
+<script>
+  //Description: This file is the invoice that contains the calculations based on the quantity and products selected from the products_store html page
+  //Shafkat and Justin 12/3/19-Code is adapted from Invoice 2 WOD Exercise
+  </script>
+  <script src="./product_data.js" type=""></script>
+  <script>
+   //invoice loads after functions in products_store are checked 
+    let params = (new URL(document.location)).searchParams;
+    
+    if(params.has('username')){
+    }
+    else{ //if the invoice page doesn't recieve username info, it will display a message that says please purchase/login before checkout and take the use to the flowershop.html page
+      alert('Please login before checkout');
+      window.location = 'login.html';
+      window.stop();
+    }
+    if (params.has(`purchase_submit`)) 
+    {} 
+    else{
+      alert('You must enter the amount of photos you want to purchase');
+      window.location = 'products_store.html';
+      window.stop();}
+  //Form was submitted so initiate the invoice by taking the quantities that were submitted for each product
+  //If you went to invoice.html directly without submitting any quanitites, you will get a no form submitted
+    var quantities = [];
+    if (params.has('purchase_submit')) {
+      for (i = 0; i < product_data.length; i++) {
+        if (params.has(`quantity${i}`)) {
+          a_qty = params.get(`quantity${i}`);
+          quantities[i] = a_qty;
+        }
+      }
+    } else {
+      document.write('no form submitted');
+    }
+    console.log(quantities);
+  /*table to create the invoice
+  Linked is what is in the table to the product_data.js where all the prices items and pictures are
+  */
+  </script>
+  
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Receipt</title>
+    <link href="products_style.css" rel="stylesheet">
+  </head>
+  
+  <body>
+    <header>
+      <h1>Photo Gallery Invoice</h1>
+      <h1> <script>document.write(`Thank you for your purchase ${params.get('username')}!!!`);</script> </h1>
+    </header>
+    
+    <table border="2">
+      <tbody>
+        <tr id="invoice">
+          <th width="43%">Item</th>
+          <th width="11%">Quantity</th>
+          <th width="13%">Price</th>
+          <th width="54%">Extended Price</th>
+        </tr>
+        <script>
+          subtotal = 0; //starting amount till prices are calculated and added up
+          //If the quantity's of the products are greater than 0, calculate extended price, subtotal and document write the products purchased, quanitites of each, price and extended price.
+          for (i = 0; i < product_data.length; i++) {
+            if (quantities[i] > 0) { //product row
+              // product row
+              extended_price = quantities[i] * product_data[i].price
+              subtotal += extended_price;
+              document.write(`
+          <tr>
+            <td width="43%">${product_data[i].type}</td>
+            <td align="center" width="11%">${quantities[i]}</td>
+            <td width="13%">\$${product_data[i].price}</td>
+            <td width="54%">\$${extended_price}</td>
+          </tr>
+          `);
+            }
+          }
+          // Compute tax 
+          var tax_rate = 0.04712;
+          var tax = subtotal * tax_rate;
+          // Compute shipping
+          if (subtotal >= 100) {
+            var shipping = 0.05 * subtotal
+          }
+          else if (subtotal >= 50) {
+            var shipping = 5
+          }
+          else if (subtotal < 50) {
+            var shipping = 2
+          }
+          // Compute grand total 
+          var grandtotal = subtotal + tax + shipping;
+        // Sources: Invoice WOD
+        </script>
+        <tr>
+          <td colspan="4" width="100%">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="3" width="67%">Sub-Total</td>
+          <td width="54%">$
+            <script>document.write(subtotal);</script>
+          </td>
+        </tr>
+        <tr>
+          <td  colspan="3" width="67%">Tax @
+            <script>document.write( tax_rate);</script>%</span></td>
+          <td width="54%">$
+            <script>document.write(tax.toFixed(2));</script>
+          </td>
+        </tr>
+        <tr>
+          <td  colspan="3" width="67%">Shipping</span></td>
+          <td width="54%">$
+            <script>document.write(shipping.toFixed(2));</script>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3" width="67%"><strong>Total</strong></td>
+          <td width="54%"><strong>$
+              <script>document.write(grandtotal.toFixed(2));</script></strong></td>
+        </tr>
+        <tr>
+          <td  colspan="5" width="121%"><strong>
+                 
+            OUR SHIPPING POLICY IS: <br>
+              Subtotals of $0 - $49.99 will be charged $2 shipping. <br>
+              Subtotals of $50 - $99.99 will be charged $5 shipping. <br>
+              Subtotals over $100 will be charged 5% of the subtotal amount. <br>
+             
+            </strong></td>
+          
+  
+        </tr>
+      </tbody>
+    </table>
+    <footer>
+      <h1>
+        We Hope to See You Again!
+      </h1>
+    </footer>
+  </body>
+  
+  </html>
